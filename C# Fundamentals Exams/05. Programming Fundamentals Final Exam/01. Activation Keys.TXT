@@ -1,0 +1,62 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace LeetCodeExercises
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string activationKey = Console.ReadLine();
+
+            string command = Console.ReadLine();
+
+            while (command != "Generate")
+            {
+                string[] splitted = command.Split(">>>");
+                if(splitted[0] == "Contains")
+                {
+                    string substring = splitted[1];
+                    if(activationKey.Contains(substring))
+                    {
+                        Console.WriteLine($"{activationKey} contains {substring}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Substring not found!");
+                    }
+                }
+                else if(splitted[0] == "Flip")
+                {
+                    int startIndex = int.Parse(splitted[2]);
+                    int endIndex = int.Parse(splitted[3]);
+                    if (splitted[1] == "Upper")
+                    {
+                        string substring = activationKey.Substring(startIndex, endIndex - startIndex).ToUpper();
+                        activationKey = activationKey.Remove(startIndex, endIndex - startIndex);
+                        activationKey = activationKey.Insert(startIndex, substring);
+                    }
+                    else if (splitted[1] == "Lower")
+                    {
+                        string substring = activationKey.Substring(startIndex, endIndex - startIndex).ToLower();
+                        activationKey = activationKey.Remove(startIndex, endIndex - startIndex);
+                        activationKey = activationKey.Insert(startIndex, substring);
+                    }
+                    Console.WriteLine(activationKey);
+                }
+                else if(splitted[0] == "Slice")
+                {
+                    int startIndex = int.Parse(splitted[1]);
+                    int endIndex = int.Parse(splitted[2]);
+
+                    activationKey = activationKey.Remove(startIndex, endIndex - startIndex);
+                    Console.WriteLine(activationKey);
+                }
+
+                command = Console.ReadLine();
+            }
+            Console.WriteLine($"Your activation key is: {activationKey}");
+        }
+    }
+}

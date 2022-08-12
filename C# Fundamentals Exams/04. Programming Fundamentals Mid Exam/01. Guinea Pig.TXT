@@ -1,0 +1,51 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Fundamentals
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            double food = double.Parse(Console.ReadLine());
+            double hay = double.Parse(Console.ReadLine());
+            double cover = double.Parse(Console.ReadLine());
+            double weight = double.Parse(Console.ReadLine());
+
+            double foodInGrams = food * 1000;
+            double hayInGrams = hay * 1000;
+            double coverInGrams = cover * 1000;
+            double weightGrams = weight * 1000;
+
+            int days = 30;
+
+            for (int i = 1; i <= days; i++)
+            {
+                foodInGrams -= 300;
+                if(i % 2 == 0)
+                {
+                    double neededHay = foodInGrams * 0.05;
+                    hayInGrams -= neededHay;
+                }
+                if(i % 3 == 0)
+                {
+                    double neededCover = weightGrams / 3;
+                    coverInGrams -= neededCover;
+                }
+            }
+            if (foodInGrams <= 0 || hayInGrams <= 0 || coverInGrams <= 0)
+            {
+                Console.WriteLine("Merry must go to the pet store!");
+
+            }
+            else
+            {
+
+                Console.WriteLine($"Everything is fine! Puppy is happy!" +
+                    $" Food: {foodInGrams / 1000:F2}, Hay: {hayInGrams / 1000:F2}, Cover: {coverInGrams / 1000:F2}.");
+            }
+        }
+    }
+}

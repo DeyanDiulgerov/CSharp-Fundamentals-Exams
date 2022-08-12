@@ -1,0 +1,32 @@
+using System;
+using System.Linq;
+
+namespace Fundamentals
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string text = Console.ReadLine();
+            IsPalindrome(text);
+        }
+
+        private static string IsPalindrome(string text)
+        {
+            while (text != "END")
+            {
+                string reversedText = string.Empty;
+                for (int i = text.Length - 1; i >= 0; i--)
+                {
+                    reversedText += text[i];
+                }
+                bool IsPalindrome = reversedText == text;
+                Console.WriteLine(IsPalindrome);
+
+                text = Console.ReadLine();
+            }
+
+            return text;
+        }
+    }
+}

@@ -1,0 +1,66 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace Fundamentals
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            double health = 100;
+            double bitcoins = 0;
+            string[] dungeonsRooms = Console.ReadLine().Split("|", StringSplitOptions.RemoveEmptyEntries);
+            string[] currentRoom = new string[dungeonsRooms.Length];
+            int counterRooms = 0;
+
+            for (int i = 0; i < dungeonsRooms.Length; i++)
+            {
+                currentRoom = dungeonsRooms[i].Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                string command = currentRoom[0];
+                double numberFromInput = double.Parse(currentRoom[1]);
+                counterRooms++;
+
+                if(command == "potion")
+                {
+                    health += numberFromInput;
+                    if (health > 100)
+                    {
+                        numberFromInput -= health - 100;
+                        health = 100;
+                        Console.WriteLine($"You healed for {numberFromInput} hp.");
+                        Console.WriteLine($"Current health: {health} hp.");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"You healed for {numberFromInput} hp.");
+                        Console.WriteLine($"Current health: {health} hp.");
+                    }
+                }
+                else if (command == "chest")
+                {
+                    bitcoins += numberFromInput;
+                    Console.WriteLine($"You found {numberFromInput} bitcoins.");
+                }
+                else
+                {
+                    health -= numberFromInput;
+                    if (health > 0)
+                    {
+                        Console.WriteLine($"You slayed {command}.");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"You died! Killed by {command}.");
+                        Console.WriteLine($"Best room: {counterRooms}");
+                        return;
+                    }
+                }
+            }
+            //"You've made it!", "Bitcoins: {bitcoins}", "Health: {health}".
+            Console.WriteLine("You've made it!");
+            Console.WriteLine($"Bitcoins: {bitcoins}");
+            Console.WriteLine($"Health: {health}");
+        }
+    }
+}

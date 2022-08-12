@@ -1,0 +1,30 @@
+using System;
+using System.Linq;
+
+namespace Fundamentals
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string text = Console.ReadLine();
+            string result = "";
+            result = Print(text, result);
+            Console.WriteLine(result);
+        }
+
+        private static string Print(string text, string result)
+        {
+            if (text.Length % 2 == 1)
+            {
+                result = text[text.Length / 2].ToString();
+            }
+            else if (text.Length % 2 == 0)
+            {
+                result = text[text.Length / 2 - 1].ToString();
+                result += text[text.Length / 2];
+            }
+            return result;
+        }
+    }
+}

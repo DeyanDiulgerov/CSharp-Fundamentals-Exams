@@ -1,0 +1,59 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace Fundamentals
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<string> collectingItems = Console.ReadLine()
+               .Split(", ")
+               .ToList();
+            string line = Console.ReadLine();
+
+
+            while (line != "Craft!")
+            {
+                string[] tokens = line.Split(" - ");
+                string command = tokens[0];
+                string item = tokens[1];
+
+                if(command == "Collect")
+                {
+                    if (!collectingItems.Contains(item))
+                    {
+                       collectingItems.Add(item);
+                    }
+                }
+                else if(command == "Drop")
+                {
+                        collectingItems.Remove(item);
+                }
+                else if(command == "Renew")
+                {
+                    if (collectingItems.Remove(item))
+                    {
+                        collectingItems.Add(item);
+                    }
+                }
+                else if(command == "Combine Items")
+                {
+                    string[] splittedValue = item.Split(":");
+                    string olditem = splittedValue[0];
+                    string newitem = splittedValue[1];
+
+                    int index = collectingItems.IndexOf(olditem);
+                    if(index >= 0)
+                    {
+                        collectingItems.Insert(index + 1, newitem);
+                    }                    
+                }
+
+                line = Console.ReadLine();
+            }
+            Console.WriteLine(String.Join(", ", collectingItems));
+        }
+    }
+}

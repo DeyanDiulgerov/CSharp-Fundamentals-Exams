@@ -1,0 +1,46 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Fundamentals
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string message = Console.ReadLine();
+
+            string command = Console.ReadLine();
+            while (command != "Decode")
+            {
+                string[] splitted = command.Split("|").ToArray();
+                if(command.Contains("Move"))
+                {
+                    int numberOfLetter = int.Parse(splitted[1]);
+
+                    string substring = message.Substring(0, numberOfLetter);
+                    message = message.Remove(0, numberOfLetter);
+                    message = message.Insert(message.Length, substring);
+                }
+                else if(command.Contains("Insert"))
+                {
+                    int index = int.Parse(splitted[1]);
+                    string value = splitted[2];
+
+                    message = message.Insert(index, value);
+                }
+                else if(command.Contains("ChangeAll"))
+                {
+                    string oldString = splitted[1];
+                    string newString = splitted[2];
+
+                    message = message.Replace(oldString, newString);
+                }
+
+                command = Console.ReadLine();
+            }
+            Console.WriteLine($"The decrypted message is: {message}");
+        }
+    }
+}
